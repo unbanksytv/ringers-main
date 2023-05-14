@@ -8,10 +8,7 @@ const NFT_COUNT = 69;
 const OUTPUT_FOLDER = 'nfts';
 const METADATA_FOLDER = 'metadata';
 
-export default async function generateNFTs(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function generateNFTs(req: NextApiRequest, res: NextApiResponse) {
   // Create the output and metadata folders if they don't exist
   if (!fs.existsSync(OUTPUT_FOLDER)) {
     fs.mkdirSync(OUTPUT_FOLDER);
