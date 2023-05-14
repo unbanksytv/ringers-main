@@ -8,9 +8,9 @@ const HomePage = () => {
     const generateNFTs = async () => {
       try {
         await axios.get('/api/generateNFTs');
-        console.log('NFTs generated successfully');
+        console.log('NFTs generated and minted successfully');
       } catch (error) {
-        console.error('Error generating NFTs:', error);
+        console.error('Error generating and minting NFTs:', error);
       }
     };
 
