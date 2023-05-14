@@ -1,7 +1,5 @@
-// pages/api/generateNFTs.ts
-
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas, loadImage, CanvasRenderingContext2D } from 'canvas';
 import fs from 'fs';
 
 const NFT_COUNT = 69;
@@ -22,38 +20,18 @@ async function generateNFTs(req: NextApiRequest, res: NextApiResponse) {
     const canvasWidth = 1600;
     const canvasHeight = 900;
     const canvas = createCanvas(canvasWidth, canvasHeight);
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('2d') as CanvasRenderingContext2D; // Cast context to CanvasRenderingContext2D
 
-    // Generate the artwork using canvas API and enhanced creativity techniques
-    const backgroundColor = getRandomColor();
-    const color1 = getRandomColor();
-    const color2 = getRandomColor();
+    // Generate the artwork using canvas API and Mark Rothko colors
 
-    // Apply background gradient
-    const gradient = context.createLinearGradient(0, 0, canvasWidth, canvasHeight);
-    gradient.addColorStop(0, backgroundColor);
-    gradient.addColorStop(1, getRandomColor());
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, canvasWidth, canvasHeight);
+    // Create a random shape (e.g., circle, rectangle, triangle)
+    const shapeType = getRandomShapeType();
+    const shapeX = getRandomInt(0, canvasWidth);
+    const shapeY = getRandomInt(0, canvasHeight);
+    const shapeSize = getRandomInt(100, 300);
 
-    // Draw abstract shapes
-    const numShapes = getRandomInt(3, 6);
-    const maxShapeSize = Math.min(canvasWidth, canvasHeight) / 2;
-
-    for (let j = 0; j < numShapes; j++) {
-      const shapeSize = getRandomInt(maxShapeSize / 4, maxShapeSize);
-      const shapeX = getRandomInt(0, canvasWidth - shapeSize);
-      const shapeY = getRandomInt(0, canvasHeight - shapeSize);
-      const shapeColor = j % 2 === 0 ? color1 : color2;
-
-      context.fillStyle = shapeColor;
-      context.strokeStyle = getRandomColor();
-      context.lineWidth = getRandomInt(1, 5);
-
-      // Create a random shape (e.g., circle, rectangle, triangle)
-      const shapeType = getRandomShapeType();
-      drawShape(context, shapeType, shapeX, shapeY, shapeSize);
-    }
+    // Draw the shape
+    drawShape(context, shapeType, shapeX, shapeY, shapeSize);
 
     // Save the canvas as an image
     const fileName = `nft-${i}.png`;
